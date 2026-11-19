@@ -1,6 +1,6 @@
 # Foot13 Benchmark Code
 
-Foot13 provides benchmark code for localising 13 landmarks in single-foot podoscopic images and evaluating five footprint measurements derived from those landmarks. The six model configurations use the prepared Foot13 crops and the supplied training, validation and test splits.
+Foot13 provides benchmark code for localising 13 landmarks in single-foot podoscopic images and evaluating five footprint measurements derived from those landmarks. The six model configurations use the prepared Foot13 images and the supplied training, validation and test splits.
 
 ## Repository layout
 
@@ -25,7 +25,7 @@ Foot13/
 | `configs/_base_/datasets/foot13.py` | Canonical landmark order, dataset metadata and landmark-specific object keypoint similarity (OKS) tolerances. |
 | `configs/foot13/` | Training and test configurations for six models with a network input of 192 pixels wide by 480 pixels high. |
 | `projects/foot13/transforms.py` | Brightness and contrast augmentation and box blur for training. |
-| `projects/foot13/metrics.py`, `projects/foot13/obb_errors.py` | Match predictions to the reference annotations and compute overall and per-landmark mean point error (MPE) and normalised mean error (NME). NME uses the expanded oriented bounding box diagonal. |
+| `projects/foot13/metrics.py`, `projects/foot13/obb_errors.py` | Match predictions to the reference annotations and compute overall and per-landmark mean point error (MPE) and normalised mean error (NME). |
 | `tools/train.py`, `tools/test.py` | Training and testing entry points. The test script exports summary metrics and predictions for offline analysis. |
 | `tools/measurements_tools/` | Measurement functions and notebooks for calculating footprint values and summarising their errors. |
 
