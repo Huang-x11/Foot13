@@ -10,15 +10,22 @@ def angle(a, vertex, b):
     return np.degrees(np.arccos(np.clip(cosine, -1, 1)))
 
 
-def compute_measurements(points):
+def compute_measurements(points, foot_side):
     """Return CA, HVA, NMP, SI, and CSI."""
     points = np.asarray(points, dtype=float).reshape(13, 2)
     FM, FL, MM, ML, HM, HL, HaMP, HeMP, FMMP, HR, STF, NT, DIM = points
 
     with np.errstate(divide="ignore", invalid="ignore"):
         ca = angle(DIM, FM, HM)
-        hva = angle(HaMP, FMMP, HeMP)
-        hva = min(hva, 180 - hva)
+
+        u = FMMP - HeMP
+        v = HaMP - FMMP
+
+        cross_hva = u[0] * v[1] - u[1] * v[0]
+        dot_hva = np.dot(u, v)
+        theta = np.degrees(np.arctan2(cross_hva, dot_hva))
+        sign = {"L": 1.0, "R": -1.0}[foot_side]
+        hva = sign * theta
 
         axis = STF - HR
         offset = NT - HR
